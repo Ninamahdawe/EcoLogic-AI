@@ -4,6 +4,7 @@ import { HomePage } from './components/HomePage';
 import { Dashboard } from './components/Dashboard';
 import { Messaging } from './components/Messaging';
 import { ProfilePage } from './components/ProfilePage';
+import { AIChatbot } from './components/AIChatbot';
 
 export default function SwapQuest() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -84,14 +85,6 @@ export default function SwapQuest() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50">
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fade-in 0.3s ease-out; }
-      `}</style>
-
       <Header currentPage={currentPage} setCurrentPage={setCurrentPage} unreadCount={unreadCount} />
 
       <main className="max-w-full mx-auto px-8 py-12">
@@ -100,6 +93,8 @@ export default function SwapQuest() {
         {currentPage === 'messages' && <Messaging conversations={conversations} setConversations={setConversations} />}
         {currentPage === 'profile' && <div className="max-w-7xl mx-auto"><ProfilePage /></div>}
       </main>
+
+      <AIChatbot />
     </div>
   );
 }
