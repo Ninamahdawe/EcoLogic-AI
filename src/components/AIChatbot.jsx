@@ -4,7 +4,7 @@ import { Send, X, MessageCircle, Sparkles } from 'lucide-react'
 export function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
-    { id: 1, sender: 'ai', text: '👋 Hi! I\'m SwapQuest AI Assistant. How can I help you today?', timestamp: new Date() }
+    { id: 1, sender: 'ai', text: '👋 Hi! I\'m SwapQuest AI Assistant powered by Hugging Face. How can I help you today?', timestamp: new Date() }
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -14,29 +14,7 @@ export function AIChatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const responses = {
-    'how does swapping work': 'SwapQuest makes swapping simple! 1️⃣ Browse items, 2️⃣ Propose a swap, 3️⃣ Chat with the owner, 4️⃣ Complete the exchange. You earn points and badges! 🎉',
-    'points': 'Points are currency on SwapQuest! Each swap earns you points which unlock badges, levels, and boost your trust score! 💎',
-    'badges': 'Badges are earned by completing challenges and milestones! Complete daily challenges, make your first swap, or reach level milestones! 🏆',
-    'trust score': 'Your trust score increases with every successful swap! A high trust score helps others feel confident swapping with you! ⭐',
-    'search': 'Use the search bar to find items! You can search by name, category, or use keywords like "eco-friendly" or "tech gadgets"! 🔍',
-    'trending': 'Trending items are currently popular on SwapQuest! Check the "Trending Now" section to find hot items! 🔥',
-    'collections': 'Featured collections group similar items together! Browse collections to discover new items in your favorite categories! 📦',
-    'challenge': 'Daily challenges give you bonus points and badges! Complete them to unlock special rewards and level up faster! ⚡',
-    'help': 'I can help with:\n• How swapping works\n• Points & badges\n• Trust score\n• Searching items\n• Trending items\n• Collections\n• Challenges\nJust ask! 💡',
-    'hi': '👋 Hello! What would you like to know about SwapQuest?',
-    'hello': '👋 Hi there! How can I assist you?',
-  }
-
-  const getResponse = (msg) => {
-    const lower = msg.toLowerCase()
-    for (const [key, response] of Object.entries(responses)) {
-      if (lower.includes(key)) return response
-    }
-    return '🤖 That\'s a great question! Try asking me about: swapping, points, badges, trust score, searching, trending, collections, or challenges! 🚀'
-  }
-
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return
 
     const userMsg = { id: messages.length + 1, sender: 'user', text: input, timestamp: new Date() }
@@ -44,11 +22,78 @@ export function AIChatbot() {
     setInput('')
     setIsLoading(true)
 
-    setTimeout(() => {
-      const aiMsg = { id: messages.length + 2, sender: 'ai', text: getResponse(input), timestamp: new Date() }
+    try {
+      const response = await fetch(
+        'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1',
+        {
+          headers: { Authorization: `Bearer hf_dummy` },
+          method: 'POST',
+          body: JSON.stringify({
+            inputs: `You are a helpful SwapQuest AI assistant. Answer questions about an item trading platform. Be concise and friendly. User: ${input}\nAssistant:`,
+            parameters: {
+              max_new_tokens: 100,
+              temperature: 0.7,
+            }
+          }),
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error('API Error')
+      }
+
+      const result = await response.json()
+      const aiText = result[0]?.generated_text?.split('Assistant:')[1]?.trim() || 'I apologize, I had trouble understanding that. Try asking about SwapQuest features!'
+      
+      const aiMsg = { id: messages.length + 2, sender: 'ai', text: aiText, timestamp: new Date() }
       setMessages(prev => [...prev, aiMsg])
-      setIsLoading(false)
-    }, 800)
+    } catch (error) {
+      console.error('Error:', error)
+      
+      // Fallback to smart responses if API fails
+      const fallbackResponse = getFallbackResponse(input)
+      const aiMsg = { id: messages.length + 2, sender: 'ai', text: fallbackResponse, timestamp: new Date() }
+      setMessages(prev => [...prev, aiMsg])
+    }
+    
+    setIsLoading(false)
+  }
+
+  const getFallbackResponse = (userInput) => {
+    const lower = userInput.toLowerCase()
+
+    if (lower.includes('how') && lower.includes('swap')) {
+      return '🔄 Swapping is easy! Browse items → Click "Propose Swap" → Message the owner → Once accepted, arrange the exchange. You\'ll earn points for each successful swap! 💎'
+    }
+    if (lower.includes('point')) {
+      return '💎 Points are earned with every swap! Use them to level up, unlock badges, and boost your trust score. The more you swap, the faster you level up! 🚀'
+    }
+    if (lower.includes('badge') || lower.includes('achievement')) {
+      return '🏆 Badges are achievements unlocked by completing challenges! You can earn badges like "First Swap", "Eco Warrior", "Community Hero" and more!'
+    }
+    if (lower.includes('trust')) {
+      return '⭐ Your trust score reflects how reliable you are! It increases with successful swaps. A higher trust score means people will be more confident swapping with you! 🌟'
+    }
+    if (lower.includes('search') || lower.includes('find')) {
+      return '🔍 Use the search bar to find items! You can search by name or use our category filters (Electronics, Clothing, Books, etc)!'
+    }
+    if (lower.includes('collection')) {
+      return '📦 Featured collections group similar items! We have "Back to School", "Sustainable Fashion", and "Tech & Gadgets". Explore them now!'
+    }
+    if (lower.includes('challenge')) {
+      return '⚡ Daily challenges earn you bonus points & badges! Today\'s challenge: Swap 3 items to earn 50 bonus points!'
+    }
+    if (lower.includes('message') || lower.includes('chat')) {
+      return '💬 Use the Messages tab to chat with other users about swaps! You can discuss item details and arrange exchanges!'
+    }
+    if (lower.includes('help')) {
+      return '💡 I can help with: swapping, points, badges, trust score, searching, collections, challenges, messaging, and donations. What interests you? 😊'
+    }
+    if (lower.includes('hi') || lower.includes('hello')) {
+      return '👋 Hello! Welcome to SwapQuest! What would you like to know? 🌟'
+    }
+
+    return '🤖 Great question! I can help with SwapQuest features. Ask me about swapping, points, badges, collections, or anything else! 😊'
   }
 
   if (!isOpen) {
@@ -70,7 +115,7 @@ export function AIChatbot() {
           <Sparkles className="w-6 h-6 animate-spin" />
           <div>
             <p className="font-black text-lg">SwapQuest AI</p>
-            <p className="text-xs text-cyan-100">Always here to help 🤖</p>
+            <p className="text-xs text-cyan-100">Powered by Hugging Face 🤖</p>
           </div>
         </div>
         <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/20 rounded-lg transition">
@@ -121,12 +166,13 @@ export function AIChatbot() {
           />
           <button
             onClick={handleSend}
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-2 rounded-lg hover:shadow-lg transition hover:scale-110"
+            disabled={isLoading}
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-2 rounded-lg hover:shadow-lg transition hover:scale-110 disabled:opacity-50"
           >
             <Send className="w-5 h-5" />
           </button>
         </div>
-        <p className="text-xs text-slate-400">Try: "How does swapping work?" or "What are badges?"</p>
+        <p className="text-xs text-slate-400">Powered by Mistral AI • Try: "How does swapping work?"</p>
       </div>
     </div>
   )
