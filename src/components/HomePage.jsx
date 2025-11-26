@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Gift, TrendingUp, Search, Star, Flame, Award, Trophy, Zap, X } from 'lucide-react';
+import { CollectionBrowser } from './CollectionBrowser';
 
 export function HomePage({ items }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [proposalData, setProposalData] = useState({ item: '', message: '' });
-  const [selectedCollection, setSelectedCollection] = useState(null);
+  const [browsingCollection, setBrowsingCollection] = useState(null);
   const categories = ['Electronics', 'Clothing', 'Books', 'Toys', 'Home Decor', 'Sports'];
 
   const collections = [
@@ -42,6 +43,11 @@ export function HomePage({ items }) {
       details: 'Explore the latest tech gadgets, electronics, and accessories. Find great deals on quality items.'
     },
   ];
+
+  // If browsing collection, show browser instead
+  if (browsingCollection) {
+    return <CollectionBrowser collection={browsingCollection} onBack={() => setBrowsingCollection(null)} />;
+  }
 
   const handleProposeSwap = (item) => {
     setSelectedItem(item);
@@ -126,7 +132,6 @@ export function HomePage({ items }) {
         <div className="grid grid-cols-3 gap-6">
           {collections.map((collection) => (
             <div key={collection.id} className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${collection.color} text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer`}>
-              {/* Top Section with Icon */}
               <div className="h-40 flex items-center justify-center relative">
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition"></div>
                 <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center text-6xl group-hover:scale-110 transition duration-300">
@@ -137,20 +142,17 @@ export function HomePage({ items }) {
                 </div>
               </div>
 
-              {/* Bottom Section with Info */}
               <div className="bg-white text-gray-900 p-6">
                 <h4 className="font-bold text-lg mb-2">{collection.title}</h4>
                 <p className="text-sm text-gray-600 mb-4">{collection.desc}</p>
                 
-                {/* Stats */}
                 <div className="flex justify-between items-center mb-4 text-sm text-teal-600 font-semibold">
                   <span>📦 {collection.items} items</span>
                   <span>👥 {collection.active} active</span>
                 </div>
 
-                {/* Explore Button */}
                 <button 
-                  onClick={() => setSelectedCollection(collection)}
+                  onClick={() => setBrowsingCollection(collection)}
                   className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-emerald-500/30 transition hover:scale-105 duration-200"
                 >
                   Explore Collection
@@ -189,64 +191,6 @@ export function HomePage({ items }) {
           ))}
         </div>
       </div>
-
-      {/* Collection Modal */}
-      {selectedCollection && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl max-w-3xl w-full shadow-2xl overflow-hidden">
-            <div className={`bg-gradient-to-br ${selectedCollection.color} text-white p-8 flex items-start justify-between`}>
-              <div>
-                <h2 className="text-3xl font-bold mb-2">{selectedCollection.title}</h2>
-                <p className="text-white/90">{selectedCollection.details}</p>
-              </div>
-              <button onClick={() => setSelectedCollection(null)} className="text-white hover:bg-white/20 p-3 rounded-xl transition">
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            <div className="p-8">
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 text-center border border-emerald-200">
-                  <p className="text-gray-600 text-sm mb-2">Total Items</p>
-                  <p className="text-4xl font-bold text-emerald-600">📦 {selectedCollection.items}</p>
-                </div>
-                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 text-center border border-emerald-200">
-                  <p className="text-gray-600 text-sm mb-2">Active Users</p>
-                  <p className="text-4xl font-bold text-emerald-600">👥 {selectedCollection.active}</p>
-                </div>
-                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 text-center border border-emerald-200">
-                  <p className="text-gray-600 text-sm mb-2">Trend</p>
-                  <p className="text-2xl font-bold text-emerald-600">📈 {selectedCollection.badge}</p>
-                </div>
-              </div>
-
-              <div className="space-y-4 mb-8">
-                <h3 className="font-bold text-lg text-gray-900">Popular Items in this Collection</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {items.slice(0, 4).map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-emerald-400 transition cursor-pointer">
-                      <span className="text-4xl">{item.image}</span>
-                      <div className="flex-1">
-                        <p className="font-semibold text-gray-900">{item.title}</p>
-                        <p className="text-sm text-emerald-600">💰 {item.points} pts</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={() => setSelectedCollection(null)} className="flex-1 px-6 py-3 border-2 border-gray-300 rounded-xl font-bold text-gray-900 hover:bg-gray-50">
-                  Close
-                </button>
-                <button className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-bold hover:shadow-lg">
-                  Browse All Items
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Swap Proposal Modal */}
       {selectedItem && (
