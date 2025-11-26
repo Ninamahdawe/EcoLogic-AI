@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Gift, TrendingUp, Search, Star, Flame, Award, Trophy, Zap, X } from 'lucide-react';
+import { Gift, TrendingUp, Search, Star, Flame, Award, Trophy, Zap } from 'lucide-react';
 import { CollectionBrowser } from './CollectionBrowser';
 
 export function HomePage({ items }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [proposalData, setProposalData] = useState({ item: '', message: '' });
   const [browsingCollection, setBrowsingCollection] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(null);
   const categories = ['Electronics', 'Clothing', 'Books', 'Toys', 'Home Decor', 'Sports'];
 
   const collections = [
@@ -44,7 +45,6 @@ export function HomePage({ items }) {
     },
   ];
 
-  // If browsing collection, show browser instead
   if (browsingCollection) {
     return <CollectionBrowser collection={browsingCollection} onBack={() => setBrowsingCollection(null)} />;
   }
@@ -65,59 +65,121 @@ export function HomePage({ items }) {
 
   return (
     <div className="space-y-8">
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+          50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
+        }
+        @keyframes pulse-border {
+          0%, 100% { border-color: rgba(16, 185, 129, 0.3); }
+          50% { border-color: rgba(16, 185, 129, 0.8); }
+        }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        .animate-pulse-border { animation: pulse-border 2s ease-in-out infinite; }
+        .card-hover { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      `}</style>
+
+      {/* Stats Cards with Enhanced Hover */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { icon: Star, label: 'Your Level', value: 'Level 12' },
-          { icon: Flame, label: 'Daily Streak', value: '7 Days' },
-          { icon: Award, label: 'Achievements', value: '3/6' },
-          { icon: Trophy, label: 'Status', value: 'Silver' },
+          { icon: Star, label: 'Your Level', value: 'Level 12', progress: 60, color: 'from-yellow-500 to-orange-600' },
+          { icon: Flame, label: 'Daily Streak', value: '7 Days', color: 'from-orange-500 to-red-600', sublabel: 'Keep it going! 🔥' },
+          { icon: Award, label: 'Achievements', value: '3/6', color: 'from-emerald-500 to-teal-600' },
+          { icon: Trophy, label: 'Status', value: 'Silver', color: 'from-purple-500 to-pink-600' },
         ].map((stat, i) => {
           const Icon = stat.icon;
           return (
-            <div key={i} className="rounded-2xl bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl border border-white/20 p-6 shadow-xl">
-              <Icon className="w-6 h-6 text-emerald-600 mb-3" />
-              <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-              <p className="text-3xl font-bold text-emerald-600">{stat.value}</p>
+            <div 
+              key={i} 
+              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${stat.color} text-white shadow-xl p-6 card-hover cursor-pointer ${hoveredCard === i ? 'scale-105 shadow-2xl' : 'hover:scale-105 hover:shadow-2xl'}`}
+              onMouseEnter={() => setHoveredCard(i)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/10 group-hover:from-white/10 group-hover:to-white/20 transition"></div>
+              <div className="absolute -right-8 -top-8 w-20 h-20 bg-white/20 rounded-full blur-xl group-hover:scale-150 transition duration-500"></div>
+              
+              <div className="relative">
+                <div className={`mb-3 inline-block ${hoveredCard === i ? 'animate-float' : ''}`}>
+                  <Icon className="w-6 h-6 text-white" />
+                </div>
+                <p className="text-sm text-white/70 mb-1 font-semibold uppercase tracking-wider">{stat.label}</p>
+                <p className="text-4xl font-black mb-2">{stat.value}</p>
+                {stat.sublabel && <p className="text-xs text-white/60 group-hover:text-white/80 transition">{stat.sublabel}</p>}
+                {stat.progress && <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden mt-2">
+                  <div className="h-full bg-white rounded-full transition-all duration-500" style={{ width: hoveredCard === i ? '100%' : `${stat.progress}%` }}></div>
+                </div>}
+              </div>
             </div>
           );
         })}
       </div>
 
-      <div className="bg-gradient-to-r from-white/80 to-white/40 backdrop-blur-xl rounded-2xl border border-white/20 p-6 flex justify-around shadow-xl">
+      {/* Quick Stats with Animation */}
+      <div className="bg-gradient-to-r from-white/80 to-white/40 backdrop-blur-xl rounded-2xl border border-white/20 p-6 flex justify-around shadow-xl hover:shadow-2xl transition card-hover">
         {[
           { label: 'Total Swaps', value: '47', icon: '🔄' },
           { label: 'Donations', value: '23', icon: '❤️' },
           { label: 'Impact Score', value: '98/100', icon: '⭐' },
         ].map((stat, i) => (
-          <div key={i} className="text-center">
-            <p className="text-3xl mb-2">{stat.icon}</p>
-            <p className="text-emerald-600 text-sm font-semibold">{stat.label}</p>
-            <p className="text-2xl font-bold text-emerald-600">{stat.value}</p>
+          <div key={i} className="text-center group cursor-pointer">
+            <p className={`text-3xl mb-2 group-hover:scale-150 transition duration-300 ${i === 0 ? 'group-hover:rotate-12' : i === 1 ? 'group-hover:-rotate-12' : 'group-hover:animate-bounce'}`}>
+              {stat.icon}
+            </p>
+            <p className="text-emerald-600 text-sm font-semibold group-hover:text-emerald-700 transition">{stat.label}</p>
+            <p className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent group-hover:scale-110 transition duration-300 inline-block">{stat.value}</p>
           </div>
         ))}
       </div>
 
+      {/* Search with Animation */}
       <div className="space-y-3">
-        <div className="relative">
-          <Search className="absolute left-4 top-4 w-5 h-5 text-emerald-600" />
-          <input type="text" placeholder="Search for items..." className="w-full pl-12 pr-6 py-3 bg-gradient-to-r from-white/80 to-white/40 backdrop-blur-xl border border-white/20 rounded-2xl" />
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="relative">
+            <Search className="absolute left-4 top-4 w-5 h-5 text-emerald-600 group-hover:text-emerald-700 transition" />
+            <input 
+              type="text" 
+              placeholder="Search for items to swap or donate..." 
+              className="w-full pl-12 pr-6 py-3 bg-gradient-to-r from-white/80 to-white/40 backdrop-blur-xl border border-white/20 rounded-2xl focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20 transition shadow-lg group-hover:shadow-2xl group-hover:shadow-emerald-500/20"
+            />
+          </div>
         </div>
+        
         <div className="flex gap-2 flex-wrap">
-          {categories.map(cat => (
-            <button key={cat} className="px-4 py-2 text-sm bg-white/60 border border-white/20 rounded-full hover:bg-emerald-500/20">
+          {categories.map((cat, i) => (
+            <button 
+              key={cat} 
+              className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-white/60 to-white/40 backdrop-blur border border-white/20 rounded-full hover:from-emerald-500/30 hover:to-teal-500/30 hover:border-emerald-400 transition-all duration-300 shadow-lg hover:shadow-emerald-500/20 hover:scale-110 hover:-translate-y-1"
+              style={{
+                transitionDelay: `${i * 50}ms`
+              }}
+            >
               {cat}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-teal-500/30 to-emerald-500/30 rounded-2xl border border-white/20 p-8">
-        <div className="flex items-center justify-between">
+      {/* Challenge Banner with Pulse */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-teal-500/30 to-emerald-500/30 backdrop-blur-xl border border-white/20 p-8 shadow-2xl hover:shadow-3xl transition card-hover group">
+        <div className="absolute -right-20 -top-20 w-40 h-40 bg-teal-500/20 rounded-full blur-3xl group-hover:scale-150 transition duration-500"></div>
+        <div className="relative flex items-center justify-between">
           <div>
-            <p className="font-bold text-white text-lg">Daily Challenge Available!</p>
-            <p className="text-sm text-white">Swap 3 items today to earn 50 bonus points</p>
+            <div className="flex items-center gap-3 mb-2">
+              <Zap className="w-6 h-6 text-yellow-500 animate-pulse group-hover:animate-bounce" />
+              <p className="font-bold text-white text-lg group-hover:text-xl transition">Daily Challenge Available!</p>
+            </div>
+            <p className="text-sm text-white/80 group-hover:text-white transition">Swap 3 items today to earn 50 bonus points and unlock the "Triple Trader" badge</p>
           </div>
-          <button onClick={() => alert('🎉 Challenge Started!')} className="px-6 py-3 bg-white text-teal-600 rounded-xl font-bold">
+          <button 
+            onClick={() => alert('🎉 Daily Challenge Started!\n\nSwap 3 items today to earn 50 bonus points and unlock the "Triple Trader" badge!\n\nGood luck! 💪')} 
+            className="px-6 py-3 bg-white text-teal-600 rounded-xl font-bold hover:shadow-lg hover:shadow-white/50 transition hover:scale-110 duration-200 active:scale-95"
+          >
             Start Challenge
           </button>
         </div>
@@ -126,34 +188,39 @@ export function HomePage({ items }) {
       {/* Featured Collections */}
       <div>
         <h3 className="font-bold text-2xl mb-4 flex items-center gap-3">
-          <Gift className="w-7 h-7 text-emerald-600" />
-          Featured Collections
+          <Gift className="w-7 h-7 text-emerald-600 group-hover:animate-float" />
+          <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Featured Collections</span>
         </h3>
         <div className="grid grid-cols-3 gap-6">
-          {collections.map((collection) => (
-            <div key={collection.id} className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${collection.color} text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer`}>
-              <div className="h-40 flex items-center justify-center relative">
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition"></div>
-                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center text-6xl group-hover:scale-110 transition duration-300">
+          {collections.map((collection, idx) => (
+            <div 
+              key={collection.id} 
+              className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${collection.color} text-white shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer card-hover ${hoveredCard === `collection-${idx}` ? 'scale-105' : 'hover:scale-105'}`}
+              onMouseEnter={() => setHoveredCard(`collection-${idx}`)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className="h-40 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/20 group-hover:from-white/10 group-hover:to-white/30 transition"></div>
+                <div className={`w-32 h-32 bg-white/20 rounded-full flex items-center justify-center text-6xl transition-all duration-300 ${hoveredCard === `collection-${idx}` ? 'scale-125 rotate-12' : 'group-hover:scale-125 group-hover:rotate-12'}`}>
                   {collection.icon}
                 </div>
-                <div className="absolute top-4 right-4 bg-white text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+                <div className="absolute top-4 right-4 bg-white text-gray-900 px-4 py-2 rounded-full text-sm font-bold group-hover:scale-110 transition duration-300">
                   {collection.badge}
                 </div>
               </div>
 
               <div className="bg-white text-gray-900 p-6">
-                <h4 className="font-bold text-lg mb-2">{collection.title}</h4>
+                <h4 className="font-bold text-lg mb-2 group-hover:text-emerald-600 transition">{collection.title}</h4>
                 <p className="text-sm text-gray-600 mb-4">{collection.desc}</p>
                 
                 <div className="flex justify-between items-center mb-4 text-sm text-teal-600 font-semibold">
-                  <span>📦 {collection.items} items</span>
-                  <span>👥 {collection.active} active</span>
+                  <span className="group-hover:scale-110 transition duration-300 inline-block">📦 {collection.items} items</span>
+                  <span className="group-hover:scale-110 transition duration-300 inline-block">👥 {collection.active} active</span>
                 </div>
 
                 <button 
                   onClick={() => setBrowsingCollection(collection)}
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-emerald-500/30 transition hover:scale-105 duration-200"
+                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-emerald-500/30 transition hover:scale-105 duration-200 active:scale-95"
                 >
                   Explore Collection
                 </button>
@@ -163,27 +230,49 @@ export function HomePage({ items }) {
         </div>
       </div>
 
-      {/* Trending Now */}
+      {/* Trending Items */}
       <div>
         <h3 className="font-bold text-2xl mb-4 flex items-center gap-3">
-          <TrendingUp className="w-7 h-7 text-emerald-600" />
-          Trending Now
+          <TrendingUp className="w-7 h-7 text-emerald-600 animate-bounce" />
+          <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Trending Now</span>
         </h3>
         <div className="grid grid-cols-3 gap-6">
-          {items.map(item => (
-            <div key={item.id} className="bg-white/80 rounded-2xl border border-white/20 shadow-xl overflow-hidden">
-              <div className="h-48 bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center text-7xl">{item.image}</div>
+          {items.map((item, idx) => (
+            <div 
+              key={item.id} 
+              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 card-hover ${hoveredCard === `item-${idx}` ? 'scale-105' : 'hover:scale-105'}`}
+              onMouseEnter={() => setHoveredCard(`item-${idx}`)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className="relative h-48 bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center text-6xl overflow-hidden">
+                <div className={`absolute inset-0 bg-gradient-to-r from-emerald-500/0 to-teal-500/20 group-hover:from-emerald-500/10 group-hover:to-teal-500/30 transition`}></div>
+                <span className={`text-7xl transition-all duration-300 ${hoveredCard === `item-${idx}` ? 'scale-150 rotate-6' : 'group-hover:scale-150 group-hover:rotate-6'}`}>
+                  {item.image}
+                </span>
+              </div>
+              
               <div className="p-5">
-                <h4 className="font-bold text-sm mb-3">{item.title}</h4>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 bg-emerald-500 rounded-full text-white flex items-center justify-center text-xs font-bold">{item.user.charAt(0)}</div>
+                <div className="flex justify-between items-start mb-3">
+                  <h4 className="font-bold text-sm text-gray-900 line-clamp-2 group-hover:text-emerald-600 transition">{item.title}</h4>
+                  <span className="text-xs px-3 py-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-emerald-700 rounded-full whitespace-nowrap group-hover:scale-110 transition duration-300">{item.status}</span>
+                </div>
+                
+                <div className="flex items-center gap-2 mb-3 group-hover:scale-110 transition duration-300 origin-left">
+                  <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full text-white flex items-center justify-center text-xs font-bold shadow-lg">
+                    {item.user.charAt(0)}
+                  </div>
                   <div>
-                    <p className="text-xs font-semibold">{item.user}</p>
+                    <p className="text-xs font-semibold text-gray-900">{item.user}</p>
                     <p className="text-xs text-gray-600">Level {item.level}</p>
                   </div>
                 </div>
-                <p className="text-sm font-bold text-emerald-600 mb-4">💰 {item.points} pts</p>
-                <button onClick={() => handleProposeSwap(item)} className="w-full px-4 py-2 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600">
+                
+                <p className="text-sm font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-4 group-hover:scale-110 transition duration-300 inline-block">💰 {item.points} pts</p>
+                
+                <button 
+                  onClick={() => handleProposeSwap(item)} 
+                  className="w-full px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/30 transition hover:scale-105 duration-200 active:scale-95 group-hover:brightness-110"
+                >
                   {item.action}
                 </button>
               </div>
@@ -192,9 +281,9 @@ export function HomePage({ items }) {
         </div>
       </div>
 
-      {/* Swap Proposal Modal */}
+      {/* Swap Proposal Modal (unchanged) */}
       {selectedItem && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fadeIn">
           <div className="bg-white rounded-3xl max-w-2xl w-full shadow-2xl">
             <div className="p-8">
               <div className="flex items-start justify-between mb-6">
