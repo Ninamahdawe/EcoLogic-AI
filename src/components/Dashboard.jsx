@@ -5,10 +5,10 @@ export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChal
   const [selectedChallenge, setSelectedChallenge] = useState(null);
 
   const goals = [
-    { icon: '🎯', title: 'Monthly Swap Goal', current: 8, target: 15, progress: 53, reward: '250 pts' },
-    { icon: '❤️', title: 'Donation Target', current: 5, target: 10, progress: 50, reward: '150 pts' },
-    { icon: '⭐', title: 'Community Engagement', current: 12, target: 20, progress: 60, reward: 'New Badge' },
-    { icon: '📈', title: 'Sustainability Score', current: 72, target: 100, progress: 72, reward: 'Eco Master' },
+    { icon: '', title: 'Monthly Swap Goal', current: 8, target: 15, progress: 53, reward: '250 pts' },
+    { icon: '', title: 'Donation Target', current: 5, target: 10, progress: 50, reward: '150 pts' },
+    { icon: '', title: 'Community Engagement', current: 12, target: 20, progress: 60, reward: 'New Badge' },
+    { icon: '', title: 'Sustainability Score', current: 72, target: 100, progress: 72, reward: 'Eco Master' },
   ];
 
   const milestones = [
@@ -155,13 +155,13 @@ export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChal
               </div>
 
               <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-2xl p-6">
-                <h3 className="font-bold text-lg mb-4">🎁 Rewards</h3>
+                <h3 className="font-bold text-lg mb-4">Rewards</h3>
                 <p className="font-bold text-emerald-600 text-xl">{selectedChallenge.reward}</p>
               </div>
 
               <div className="flex gap-4">
                 <button onClick={() => setSelectedChallenge(null)} className="flex-1 px-6 py-3 border-2 border-gray-300 rounded-xl font-bold text-gray-900 hover:bg-gray-50">Close</button>
-                <button onClick={() => { alert(`🎉 Challenge "${selectedChallenge.title}" started!`); setSelectedChallenge(null); }} className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:shadow-lg">Start Challenge 🚀</button>
+                <button onClick={() => { alert(`Challenge "${selectedChallenge.title}" started!`); setSelectedChallenge(null); }} className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:shadow-lg">Start Challenge</button>
               </div>
             </div>
           </div>

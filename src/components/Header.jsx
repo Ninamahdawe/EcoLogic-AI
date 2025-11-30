@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Bell, Settings } from 'lucide-react';
 
 export function Header({ currentPage, setCurrentPage, unreadCount }) {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const notifications = [
-    { id: 1, type: 'swap', message: 'Sarah M. accepted your swap proposal!', time: '2 hours ago', icon: '✅' },
-    { id: 2, type: 'message', message: 'Mike R. sent you a message', time: '1 hour ago', icon: '💬' },
-    { id: 3, type: 'achievement', message: 'You unlocked "Swap Master" badge!', time: '3 hours ago', icon: '🏆' },
+    { id: 1, type: 'swap', message: 'Sarah M. accepted your swap proposal!', time: '2 hours ago', icon: '' },
+    { id: 2, type: 'message', message: 'Mike R. sent you a message', time: '1 hour ago', icon: '' },
+    { id: 3, type: 'achievement', message: 'You unlocked "Swap Master" badge!', time: '3 hours ago', icon: '' },
   ];
 
   return (
@@ -15,7 +15,7 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
       <div className="max-w-full mx-auto px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
-            ♻️
+            SQ
           </div>
           <div>
             <h1 className="font-bold text-xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">SwapQuest</h1>
@@ -28,7 +28,7 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
               onClick={() => setShowNotifications(!showNotifications)}
               className="relative text-gray-600 hover:text-emerald-600 transition text-xl hover:scale-125 duration-200"
             >
-              🔔
+              <Bell className="w-6 h-6" />
               <span className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs rounded-full flex items-center justify-center font-bold shadow-lg">
                 {notifications.length}
               </span>
@@ -64,9 +64,11 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
             )}
           </div>
 
-          <button className="text-gray-600 hover:text-emerald-600 transition text-xl hover:scale-125 duration-200">⚙️</button>
+          <button className="text-gray-600 hover:text-emerald-600 transition text-xl hover:scale-125 duration-200">
+            <Settings className="w-6 h-6" />
+          </button>
           <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-2 rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition font-bold hover:scale-105 duration-200">
-            💚 Donate
+            Donate
           </button>
         </div>
       </div>
@@ -75,10 +77,10 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
       <div className="border-t border-white/20">
         <div className="max-w-full mx-auto px-8 flex gap-8">
           {[
-            { id: 'home', label: '🏠 Home' },
-            { id: 'dashboard', label: '📊 Dashboard' },
-            { id: 'messages', label: '💬 Messages', badge: unreadCount },
-            { id: 'profile', label: '👤 Profile' },
+            { id: 'home', label: 'Home' },
+            { id: 'dashboard', label: 'Dashboard' },
+            { id: 'messages', label: 'Messages', badge: unreadCount },
+            { id: 'profile', label: 'Profile' },
           ].map(tab => (
             <button
               key={tab.id}

@@ -26,7 +26,7 @@ export default function SwapQuest() {
         { id: 3, sender: 'Sarah M.', text: 'What are you looking for?', time: '11:00 AM', own: false },
         { id: 4, sender: 'You', text: 'Do you have any books? I\'m looking for sci-fi novels', time: '11:15 AM', own: true },
         { id: 5, sender: 'Sarah M.', text: 'I have a complete Dune series! Would that work?', time: '11:30 AM', own: false },
-        { id: 6, sender: 'You', text: 'Perfect! Let\'s make the swap 🎉', time: '11:45 AM', own: true },
+        { id: 6, sender: 'You', text: 'Perfect! Let\'s make the swap', time: '11:45 AM', own: true },
         { id: 7, sender: 'Sarah M.', text: 'Thanks for the camera! Really happy with it.', time: '2:00 PM', own: false },
       ]
     },
@@ -67,12 +67,12 @@ export default function SwapQuest() {
   ]);
 
   const [items] = useState([
-    { id: 1, title: 'Vintage Polaroid Camera', category: 'Electronics', image: '📷', user: 'Sarah M.', level: 15, status: 'Excellent', points: 250, action: 'Propose Swap' },
-    { id: 2, title: 'Harry Potter Complete Set', category: 'Books', image: '📚', user: 'Mike R.', level: 8, status: 'Good', points: 150, action: 'Request Item' },
-    { id: 3, title: 'Yoga Mat & Blocks', category: 'Sports', image: '🧘', user: 'Emma L.', level: 22, status: 'Like New', points: 120, action: 'Propose Swap' },
-    { id: 4, title: 'Designer Handbag', category: 'Fashion', image: '👜', user: 'Lisa K.', level: 18, status: 'Excellent', points: 300, action: 'Propose Swap' },
-    { id: 5, title: 'Kids Building Blocks Set', category: 'Toys', image: '🧩', user: 'Tom H.', level: 5, status: 'Good', points: 100, action: 'Request Item' },
-    { id: 6, title: 'Wireless Headphones', category: 'Electronics', image: '🎧', user: 'Alex P.', level: 12, status: 'Like New', points: 200, action: 'Propose Swap' },
+    { id: 1, title: 'Vintage Polaroid Camera', category: 'Electronics', image: '', user: 'Sarah M.', level: 15, status: 'Excellent', points: 250, action: 'Propose Swap' },
+    { id: 2, title: 'Harry Potter Complete Set', category: 'Books', image: '', user: 'Mike R.', level: 8, status: 'Good', points: 150, action: 'Request Item' },
+    { id: 3, title: 'Yoga Mat & Blocks', category: 'Sports', image: '', user: 'Emma L.', level: 22, status: 'Like New', points: 120, action: 'Propose Swap' },
+    { id: 4, title: 'Designer Handbag', category: 'Fashion', image: '', user: 'Lisa K.', level: 18, status: 'Excellent', points: 300, action: 'Propose Swap' },
+    { id: 5, title: 'Kids Building Blocks Set', category: 'Toys', image: '', user: 'Tom H.', level: 5, status: 'Good', points: 100, action: 'Request Item' },
+    { id: 6, title: 'Wireless Headphones', category: 'Electronics', image: '', user: 'Alex P.', level: 12, status: 'Like New', points: 200, action: 'Propose Swap' },
   ]);
 
   const [challenges] = useState([

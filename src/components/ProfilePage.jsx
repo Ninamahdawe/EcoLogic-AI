@@ -7,7 +7,7 @@ export function ProfilePage() {
     level: 12,
     username: '@jessdavis',
     location: 'San Francisco, CA',
-    bio: 'Passionate about sustainable living ♻️',
+    bio: 'Passionate about sustainable living',
     swaps: 47,
     donations: 23,
     followers: 234,
@@ -17,12 +17,12 @@ export function ProfilePage() {
   };
 
   const badges = [
-    { title: 'First Swap', icon: '🎯', earned: true },
-    { title: 'Generous Giver', icon: '❤️', earned: true },
-    { title: 'Eco Warrior', icon: '🌱', earned: true },
-    { title: 'Community Hero', icon: '⭐', earned: false },
-    { title: 'Speed Trader', icon: '⚡', earned: false },
-    { title: 'Trend Setter', icon: '🔥', earned: false },
+    { title: 'First Swap', icon: '', earned: true },
+    { title: 'Generous Giver', icon: '', earned: true },
+    { title: 'Eco Warrior', icon: '', earned: true },
+    { title: 'Community Hero', icon: '', earned: false },
+    { title: 'Speed Trader', icon: '', earned: false },
+    { title: 'Trend Setter', icon: '', earned: false },
   ];
 
   const activity = [
@@ -36,7 +36,7 @@ export function ProfilePage() {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-emerald-600 to-emerald-50 shadow-2xl">
         <div className="h-32 bg-gradient-to-r from-emerald-600 to-teal-500 relative flex items-center justify-end pr-8">
           <button className="flex items-center gap-2 text-white bg-white/20 hover:bg-white/30 px-6 py-3 rounded-xl">
-            ✏️ Edit Profile
+            Edit Profile
           </button>
         </div>
         <div className="px-8 pb-8 relative">
@@ -59,11 +59,11 @@ export function ProfilePage() {
 
       <div className="grid grid-cols-5 gap-4">
         {[
-          { label: 'Swaps', value: userStats.swaps, icon: '🔄' },
-          { label: 'Donations', value: userStats.donations, icon: '❤️' },
-          { label: 'Reviews', value: userStats.reviews, icon: '⭐' },
-          { label: 'Followers', value: userStats.followers, icon: '👥' },
-          { label: 'Trust Score', value: `${userStats.trustScore}%`, icon: '✅' },
+          { label: 'Swaps', value: userStats.swaps, icon: '' },
+          { label: 'Donations', value: userStats.donations, icon: '' },
+          { label: 'Reviews', value: userStats.reviews, icon: '' },
+          { label: 'Followers', value: userStats.followers, icon: '' },
+          { label: 'Trust Score', value: `${userStats.trustScore}%`, icon: '' },
         ].map((stat, i) => (
           <div key={i} className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl border border-white/20 p-4 text-center shadow-lg hover:shadow-xl transition hover:scale-105">
             <p className="text-3xl mb-2">{stat.icon}</p>
@@ -96,7 +96,7 @@ export function ProfilePage() {
         <div className="space-y-4">
           {activity.map((item, i) => (
             <div key={i} className="flex items-start gap-4 pb-4 border-b border-emerald-200 last:border-0 p-3 rounded-xl">
-              <div className="text-3xl">{item.type === 'swap' ? '🔄' : item.type === 'donate' ? '❤️' : '📝'}</div>
+              <div className="text-3xl"></div>
               <div className="flex-1">
                 <p className="font-semibold text-gray-900">{item.title}</p>
                 <p className="text-xs text-gray-500 mt-1">{item.time}</p>

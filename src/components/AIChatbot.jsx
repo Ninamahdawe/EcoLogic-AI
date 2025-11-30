@@ -4,7 +4,7 @@ import { Send, X, MessageCircle, Sparkles } from 'lucide-react'
 export function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
-    { id: 1, sender: 'ai', text: '👋 Hi! I\'m SwapQuest AI Assistant powered by Hugging Face. How can I help you today?', timestamp: new Date() }
+    { id: 1, sender: 'ai', text: 'Hi! I\'m SwapQuest AI Assistant powered by Hugging Face. How can I help you today?', timestamp: new Date() }
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -63,37 +63,37 @@ export function AIChatbot() {
     const lower = userInput.toLowerCase()
 
     if (lower.includes('how') && lower.includes('swap')) {
-      return '🔄 Swapping is easy! Browse items → Click "Propose Swap" → Message the owner → Once accepted, arrange the exchange. You\'ll earn points for each successful swap! 💎'
+      return 'Swapping is easy! Browse items → Click "Propose Swap" → Message the owner → Once accepted, arrange the exchange. You\'ll earn points for each successful swap!'
     }
     if (lower.includes('point')) {
-      return '💎 Points are earned with every swap! Use them to level up, unlock badges, and boost your trust score. The more you swap, the faster you level up! 🚀'
+      return 'Points are earned with every swap! Use them to level up, unlock badges, and boost your trust score. The more you swap, the faster you level up!'
     }
     if (lower.includes('badge') || lower.includes('achievement')) {
-      return '🏆 Badges are achievements unlocked by completing challenges! You can earn badges like "First Swap", "Eco Warrior", "Community Hero" and more!'
+      return 'Badges are achievements unlocked by completing challenges! You can earn badges like "First Swap", "Eco Warrior", "Community Hero" and more!'
     }
     if (lower.includes('trust')) {
-      return '⭐ Your trust score reflects how reliable you are! It increases with successful swaps. A higher trust score means people will be more confident swapping with you! 🌟'
+      return 'Your trust score reflects how reliable you are! It increases with successful swaps. A higher trust score means people will be more confident swapping with you!'
     }
     if (lower.includes('search') || lower.includes('find')) {
-      return '🔍 Use the search bar to find items! You can search by name or use our category filters (Electronics, Clothing, Books, etc)!'
+      return 'Use the search bar to find items! You can search by name or use our category filters (Electronics, Clothing, Books, etc)!'
     }
     if (lower.includes('collection')) {
-      return '📦 Featured collections group similar items! We have "Back to School", "Sustainable Fashion", and "Tech & Gadgets". Explore them now!'
+      return 'Featured collections group similar items! We have "Back to School", "Sustainable Fashion", and "Tech & Gadgets". Explore them now!'
     }
     if (lower.includes('challenge')) {
-      return '⚡ Daily challenges earn you bonus points & badges! Today\'s challenge: Swap 3 items to earn 50 bonus points!'
+      return 'Daily challenges earn you bonus points & badges! Today\'s challenge: Swap 3 items to earn 50 bonus points!'
     }
     if (lower.includes('message') || lower.includes('chat')) {
-      return '💬 Use the Messages tab to chat with other users about swaps! You can discuss item details and arrange exchanges!'
+      return 'Use the Messages tab to chat with other users about swaps! You can discuss item details and arrange exchanges!'
     }
     if (lower.includes('help')) {
-      return '💡 I can help with: swapping, points, badges, trust score, searching, collections, challenges, messaging, and donations. What interests you? 😊'
+      return 'I can help with: swapping, points, badges, trust score, searching, collections, challenges, messaging, and donations. What interests you?'
     }
     if (lower.includes('hi') || lower.includes('hello')) {
-      return '👋 Hello! Welcome to SwapQuest! What would you like to know? 🌟'
+      return 'Hello! Welcome to SwapQuest! What would you like to know?'
     }
 
-    return '🤖 Great question! I can help with SwapQuest features. Ask me about swapping, points, badges, collections, or anything else! 😊'
+    return 'Great question! I can help with SwapQuest features. Ask me about swapping, points, badges, collections, or anything else!'
   }
 
   if (!isOpen) {
@@ -115,7 +115,7 @@ export function AIChatbot() {
           <Sparkles className="w-6 h-6 animate-spin" />
           <div>
             <p className="font-black text-lg">SwapQuest AI</p>
-            <p className="text-xs text-cyan-100">Powered by Hugging Face 🤖</p>
+            <p className="text-xs text-cyan-100">Powered by Hugging Face</p>
           </div>
         </div>
         <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/20 rounded-lg transition">
