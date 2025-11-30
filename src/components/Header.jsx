@@ -3,6 +3,7 @@ import { X, Bell, Settings } from 'lucide-react';
 
 export function Header({ currentPage, setCurrentPage, unreadCount }) {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const notifications = [
     { id: 1, type: 'swap', message: 'Sarah M. accepted your swap proposal!', time: '2 hours ago', icon: '' },
@@ -14,9 +15,6 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
     <header className="bg-gradient-to-r from-white/80 to-white/40 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40 shadow-lg">
       <div className="max-w-full mx-auto px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
-            SQ
-          </div>
           <div>
             <h1 className="font-bold text-xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">SwapQuest</h1>
             <p className="text-xs text-gray-600">Trade. Share. Level Up.</p>
@@ -56,7 +54,13 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
                   ))}
                 </div>
                 <div className="border-t border-gray-100 p-4 bg-gray-50">
-                  <button className="w-full text-center text-sm font-semibold text-emerald-600 hover:text-emerald-700">
+                  <button 
+                    onClick={() => {
+                      setShowNotifications(false);
+                      alert('Viewing all notifications...\n\nThis would show a full notifications page with all your activity history.');
+                    }}
+                    className="w-full text-center text-sm font-semibold text-emerald-600 hover:text-emerald-700"
+                  >
                     View All Notifications
                   </button>
                 </div>
@@ -64,10 +68,44 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
             )}
           </div>
 
-          <button className="text-gray-600 hover:text-emerald-600 transition text-xl hover:scale-125 duration-200">
-            <Settings className="w-6 h-6" />
-          </button>
-          <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-2 rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition font-bold hover:scale-105 duration-200">
+          <div className="relative">
+            <button 
+              onClick={() => setShowSettings(!showSettings)}
+              className="text-gray-600 hover:text-emerald-600 transition text-xl hover:scale-125 duration-200"
+            >
+              <Settings className="w-6 h-6" />
+            </button>
+            {showSettings && (
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50">
+                <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-4">
+                  <h3 className="font-bold text-lg">Settings</h3>
+                </div>
+                <div className="p-4 space-y-2">
+                  <button onClick={() => { setShowSettings(false); alert('Account settings opened'); }} className="w-full text-left px-4 py-2 hover:bg-gray-50 rounded-lg transition">
+                    Account Settings
+                  </button>
+                  <button onClick={() => { setShowSettings(false); alert('Notifications preferences opened'); }} className="w-full text-left px-4 py-2 hover:bg-gray-50 rounded-lg transition">
+                    Notifications
+                  </button>
+                  <button onClick={() => { setShowSettings(false); alert('Privacy settings opened'); }} className="w-full text-left px-4 py-2 hover:bg-gray-50 rounded-lg transition">
+                    Privacy
+                  </button>
+                  <button onClick={() => { setShowSettings(false); alert('Help & Support opened'); }} className="w-full text-left px-4 py-2 hover:bg-gray-50 rounded-lg transition">
+                    Help & Support
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          <button 
+            onClick={() => {
+              const item = prompt('Enter the item you want to donate:');
+              if (item) {
+                alert(`Thank you for donating "${item}"!\n\nYour donation helps others and earns you points. A team member will contact you soon to arrange pickup.`);
+              }
+            }}
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-2 rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition font-bold hover:scale-105 duration-200"
+          >
             Donate
           </button>
         </div>

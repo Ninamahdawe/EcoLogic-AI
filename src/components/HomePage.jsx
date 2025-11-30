@@ -1,49 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Gift, TrendingUp, Search, Star, Flame, Award, Trophy, Zap, X } from 'lucide-react';
 import { CollectionBrowser } from './CollectionBrowser';
+import itemsData from '../data/items.json';
+import collectionsData from '../data/collections.json';
 
-export function HomePage({ items }) {
+export function HomePage({ items: initialItems }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [proposalData, setProposalData] = useState({ item: '', message: '' });
   const [browsingCollection, setBrowsingCollection] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
-  const categories = ['Electronics', 'Clothing', 'Books', 'Toys', 'Home Decor', 'Sports'];
-
-  const collections = [
-    { 
-      id: 1,
-      title: 'Back to School Essentials', 
-      desc: 'Books, supplies, and gear for students',
-      icon: '',
-      items: 156,
-      active: 42,
-      badge: 'Hot',
-      color: 'from-teal-600 to-cyan-700',
-      details: 'Find everything you need for back to school. From textbooks to desk supplies, laptops to stationery.'
-    },
-    { 
-      id: 2,
-      title: 'Sustainable Fashion', 
-      desc: 'Pre-loved clothes finding new homes',
-      icon: '',
-      items: 234,
-      active: 89,
-      badge: 'Trending',
-      color: 'from-green-600 to-teal-600',
-      details: 'Discover amazing pre-loved fashion items. Shop sustainably and give clothes a second life.'
-    },
-    { 
-      id: 3,
-      title: 'Tech & Gadgets', 
-      desc: 'Electronics, accessories, and more',
-      icon: '',
-      items: 98,
-      active: 67,
-      badge: 'Popular',
-      color: 'from-cyan-600 to-blue-700',
-      details: 'Explore the latest tech gadgets, electronics, and accessories. Find great deals on quality items.'
-    },
-  ];
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const items = initialItems || itemsData;
+  const collections = collectionsData;
+  const categories = ['All', 'Electronics', 'Clothing', 'Books', 'Toys', 'Home Decor', 'Sports'];
 
   const statsCards = [
     { icon: Star, label: 'Your Level', value: 'Level 12', progress: 60, color: 'from-teal-500 to-green-600' },
@@ -75,6 +45,24 @@ export function HomePage({ items }) {
       alert('Please fill in all fields!');
     }
   };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setSearchTerm(''); // Clear search when category changes
+  };
+
+  const handleStatsCardClick = (label) => {
+    alert(`${label} details:\n\nThis feature shows your progress and achievements. Click on different cards to see more details!`);
+  };
+
+  const filteredItems = useMemo(() => {
+    return items.filter(item => {
+      const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           item.user.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [items, searchTerm, selectedCategory]);
 
   return (
     <div className="space-y-8">
@@ -109,6 +97,8 @@ export function HomePage({ items }) {
                 <input 
                   type="text" 
                   placeholder="Search items, categories or collections..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-16 pr-6 py-5 rounded-2xl border-2 border-teal-100 bg-teal-50/60 text-lg text-teal-900 placeholder:text-teal-400 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100 transition shadow-inner"
                 />
               </div>
@@ -118,7 +108,12 @@ export function HomePage({ items }) {
               {categories.map((cat, i) => (
                 <button 
                   key={cat} 
-                  className="px-5 py-2.5 text-sm font-semibold bg-white/80 border border-teal-100 rounded-full text-teal-700 hover:bg-teal-50 shadow-sm hover:shadow-md transition-all duration-300"
+                  onClick={() => handleCategoryClick(cat)}
+                  className={`px-5 py-2.5 text-sm font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-300 ${
+                    selectedCategory === cat
+                      ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white border-2 border-teal-600'
+                      : 'bg-white/80 border border-teal-100 text-teal-700 hover:bg-teal-50'
+                  }`}
                   style={{ transitionDelay: `${i * 40}ms` }}
                 >
                   {cat}
@@ -205,6 +200,7 @@ export function HomePage({ items }) {
               return (
                 <div 
                   key={stat.label}
+                  onClick={() => handleStatsCardClick(stat.label)}
                   className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${stat.color} text-white shadow-xl p-5 card-hover cursor-pointer`}
                   onMouseEnter={() => setHoveredCard(i)}
                   onMouseLeave={() => setHoveredCard(null)}
@@ -253,7 +249,18 @@ export function HomePage({ items }) {
           <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">Trending Now</span>
         </h3>
         <div className="grid grid-cols-3 gap-6">
-          {items.map((item, idx) => (
+          {filteredItems.length === 0 ? (
+            <div className="col-span-3 text-center py-12">
+              <p className="text-xl text-gray-500">No items found matching your search.</p>
+              <button 
+                onClick={() => { setSearchTerm(''); setSelectedCategory('All'); }}
+                className="mt-4 px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition"
+              >
+                Clear Filters
+              </button>
+            </div>
+          ) : (
+            filteredItems.map((item, idx) => (
             <div 
               key={item.id} 
               className={`group relative overflow-hidden rounded-2xl bg-gradient-to-b from-teal-50/80 to-cyan-50/80 backdrop-blur-xl border border-teal-200/50 shadow-xl hover:shadow-2xl transition-all duration-300 card-hover ${hoveredCard === `item-${idx}` ? 'scale-105' : 'hover:scale-105'}`}
@@ -293,7 +300,8 @@ export function HomePage({ items }) {
                 </button>
               </div>
             </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
 

@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "title": "Back to School Essentials",
+    "desc": "Books, supplies, and gear for students",
+    "icon": "",
+    "items": 156,
+    "active": 42,
+    "badge": "Hot",
+    "color": "from-teal-600 to-cyan-700",
+    "details": "Find everything you need for back to school. From textbooks to desk supplies, laptops to stationery."
+  },
+  {
+    "id": 2,
+    "title": "Sustainable Fashion",
+    "desc": "Pre-loved clothes finding new homes",
+    "icon": "",
+    "items": 234,
+    "active": 89,
+    "badge": "Trending",
+    "color": "from-green-600 to-teal-600",
+    "details": "Discover amazing pre-loved fashion items. Shop sustainably and give clothes a second life."
+  },
+  {
+    "id": 3,
+    "title": "Tech & Gadgets",
+    "desc": "Electronics, accessories, and more",
+    "icon": "",
+    "items": 98,
+    "active": 67,
+    "badge": "Popular",
+    "color": "from-cyan-600 to-blue-700",
+    "details": "Explore the latest tech gadgets, electronics, and accessories. Find great deals on quality items."
+  }
+]
+

@@ -1,0 +1,33 @@
+[
+  {
+    "title": "Weekend Warrior",
+    "difficulty": "Medium",
+    "description": "Complete 5 swaps this weekend",
+    "progress": 3,
+    "target": 5,
+    "daysLeft": 2,
+    "reward": "100 pts + Badge",
+    "icon": "⚔️"
+  },
+  {
+    "title": "Book Lover",
+    "difficulty": "Easy",
+    "description": "Swap or donate 3 books",
+    "progress": 2,
+    "target": 3,
+    "daysLeft": 5,
+    "reward": "75 pts",
+    "icon": "📖"
+  },
+  {
+    "title": "Community Builder",
+    "difficulty": "Hard",
+    "description": "Help 10 new members with their first swap",
+    "progress": 4,
+    "target": 10,
+    "daysLeft": 14,
+    "reward": "300 pts + Special Badge",
+    "icon": "🤝"
+  }
+]
+

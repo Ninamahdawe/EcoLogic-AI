@@ -1,0 +1,113 @@
+[
+  {
+    "id": 1,
+    "title": "Vintage Polaroid Camera",
+    "category": "Electronics",
+    "image": "",
+    "user": "Sarah M.",
+    "level": 15,
+    "status": "Excellent",
+    "points": 250,
+    "action": "Propose Swap"
+  },
+  {
+    "id": 2,
+    "title": "Harry Potter Complete Set",
+    "category": "Books",
+    "image": "",
+    "user": "Mike R.",
+    "level": 8,
+    "status": "Good",
+    "points": 150,
+    "action": "Request Item"
+  },
+  {
+    "id": 3,
+    "title": "Yoga Mat & Blocks",
+    "category": "Sports",
+    "image": "",
+    "user": "Emma L.",
+    "level": 22,
+    "status": "Like New",
+    "points": 120,
+    "action": "Propose Swap"
+  },
+  {
+    "id": 4,
+    "title": "Designer Handbag",
+    "category": "Clothing",
+    "image": "",
+    "user": "Lisa K.",
+    "level": 18,
+    "status": "Excellent",
+    "points": 300,
+    "action": "Propose Swap"
+  },
+  {
+    "id": 5,
+    "title": "Kids Building Blocks Set",
+    "category": "Toys",
+    "image": "",
+    "user": "Tom H.",
+    "level": 5,
+    "status": "Good",
+    "points": 100,
+    "action": "Request Item"
+  },
+  {
+    "id": 6,
+    "title": "Wireless Headphones",
+    "category": "Electronics",
+    "image": "",
+    "user": "Alex P.",
+    "level": 12,
+    "status": "Like New",
+    "points": 200,
+    "action": "Propose Swap"
+  },
+  {
+    "id": 7,
+    "title": "Vintage Record Player",
+    "category": "Electronics",
+    "image": "",
+    "user": "Jazz Fan",
+    "level": 19,
+    "status": "Excellent",
+    "points": 350,
+    "action": "Propose Swap"
+  },
+  {
+    "id": 8,
+    "title": "Mountain Bike",
+    "category": "Sports",
+    "image": "",
+    "user": "Active Joe",
+    "level": 20,
+    "status": "Good",
+    "points": 400,
+    "action": "Propose Swap"
+  },
+  {
+    "id": 9,
+    "title": "Coffee Maker",
+    "category": "Home Decor",
+    "image": "",
+    "user": "Coffee Lover",
+    "level": 7,
+    "status": "Like New",
+    "points": 80,
+    "action": "Request Item"
+  },
+  {
+    "id": 10,
+    "title": "Gaming Console",
+    "category": "Electronics",
+    "image": "",
+    "user": "Gamer Girl",
+    "level": 16,
+    "status": "Excellent",
+    "points": 280,
+    "action": "Propose Swap"
+  }
+]
+

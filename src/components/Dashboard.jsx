@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Award, Heart, Flame, TrendingUp, CheckCircle, Zap, Target, X } from 'lucide-react';
+import challengesData from '../data/challenges.json';
 
-export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChallenge: setInitialChallenge, challenges }) {
+export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChallenge: setInitialChallenge, challenges: initialChallenges }) {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [challenges] = useState(initialChallenges || challengesData);
 
   const goals = [
     { icon: '', title: 'Monthly Swap Goal', current: 8, target: 15, progress: 53, reward: '250 pts' },
@@ -28,7 +30,11 @@ export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChal
         ].map((stat, i) => {
           const Icon = stat.icon;
           return (
-            <div key={i} className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl border border-white/20 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div 
+              key={i} 
+              onClick={() => alert(`${stat.label}: ${stat.value}\n\nView detailed analytics and trends.`)}
+              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl border border-white/20 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
+            >
               <div className="relative">
                 <Icon className="w-6 h-6 text-emerald-600 mb-3" />
                 <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
@@ -46,7 +52,11 @@ export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChal
         </h3>
         <div className="grid grid-cols-2 gap-6">
           {goals.map((goal, i) => (
-            <div key={i} className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50/60 to-teal-50/60 border border-white/30 p-6">
+            <div 
+              key={i} 
+              onClick={() => alert(`Goal: ${goal.title}\n\nProgress: ${goal.current}/${goal.target} (${goal.progress}%)\n\nReward: ${goal.reward}`)}
+              className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50/60 to-teal-50/60 border border-white/30 p-6 cursor-pointer hover:border-emerald-400 transition"
+            >
               <h4 className="font-semibold text-gray-900 flex items-center gap-2 mb-4">
                 <span className="text-2xl">{goal.icon}</span>
                 {goal.title}
@@ -65,7 +75,11 @@ export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChal
         <h3 className="font-bold text-xl mb-6">Milestones</h3>
         <div className="space-y-4">
           {milestones.map((milestone, i) => (
-            <div key={i} className="flex items-center gap-4">
+            <div 
+              key={i} 
+              onClick={() => alert(`Milestone: ${milestone.title}\n\nStatus: ${milestone.completed ? 'Completed!' : `In Progress (${milestone.progress}/${milestone.total})`}`)}
+              className="flex items-center gap-4 cursor-pointer hover:bg-emerald-50 p-2 rounded-lg transition"
+            >
               {milestone.completed ? (
                 <CheckCircle className="w-6 h-6 text-emerald-600" />
               ) : (

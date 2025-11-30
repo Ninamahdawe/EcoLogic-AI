@@ -5,6 +5,8 @@ import { Dashboard } from './components/Dashboard';
 import { Messaging } from './components/Messaging';
 import { ProfilePage } from './components/ProfilePage';
 import { AIChatbot } from './components/AIChatbot';
+import itemsData from './data/items.json';
+import challengesData from './data/challenges.json';
 
 export default function SwapQuest() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -66,20 +68,8 @@ export default function SwapQuest() {
     },
   ]);
 
-  const [items] = useState([
-    { id: 1, title: 'Vintage Polaroid Camera', category: 'Electronics', image: '', user: 'Sarah M.', level: 15, status: 'Excellent', points: 250, action: 'Propose Swap' },
-    { id: 2, title: 'Harry Potter Complete Set', category: 'Books', image: '', user: 'Mike R.', level: 8, status: 'Good', points: 150, action: 'Request Item' },
-    { id: 3, title: 'Yoga Mat & Blocks', category: 'Sports', image: '', user: 'Emma L.', level: 22, status: 'Like New', points: 120, action: 'Propose Swap' },
-    { id: 4, title: 'Designer Handbag', category: 'Fashion', image: '', user: 'Lisa K.', level: 18, status: 'Excellent', points: 300, action: 'Propose Swap' },
-    { id: 5, title: 'Kids Building Blocks Set', category: 'Toys', image: '', user: 'Tom H.', level: 5, status: 'Good', points: 100, action: 'Request Item' },
-    { id: 6, title: 'Wireless Headphones', category: 'Electronics', image: '', user: 'Alex P.', level: 12, status: 'Like New', points: 200, action: 'Propose Swap' },
-  ]);
-
-  const [challenges] = useState([
-    { title: 'Weekend Warrior', difficulty: 'Medium', description: 'Complete 5 swaps this weekend', progress: 3, target: 5, daysLeft: 2, reward: '100 pts + Badge', icon: '⚔️' },
-    { title: 'Book Lover', difficulty: 'Easy', description: 'Swap or donate 3 books', progress: 2, target: 3, daysLeft: 5, reward: '75 pts', icon: '📖' },
-    { title: 'Community Builder', difficulty: 'Hard', description: 'Help 10 new members with their first swap', progress: 4, target: 10, daysLeft: 14, reward: '300 pts + Special Badge', icon: '🤝' },
-  ]);
+  const [items] = useState(itemsData);
+  const [challenges] = useState(challengesData);
 
   const unreadCount = conversations.reduce((acc, conv) => acc + conv.unread, 0);
 
