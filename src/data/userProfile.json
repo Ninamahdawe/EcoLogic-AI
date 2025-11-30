@@ -1,0 +1,27 @@
+{
+  "name": "Jessica Davis",
+  "level": 12,
+  "username": "@jessdavis",
+  "location": "San Francisco, CA",
+  "bio": "Passionate about sustainable living",
+  "swaps": 47,
+  "donations": 23,
+  "followers": 234,
+  "reviews": 38,
+  "rating": 4.9,
+  "trustScore": 98,
+  "badges": [
+    { "title": "First Swap", "icon": "", "earned": true },
+    { "title": "Generous Giver", "icon": "", "earned": true },
+    { "title": "Eco Warrior", "icon": "", "earned": true },
+    { "title": "Community Hero", "icon": "", "earned": false },
+    { "title": "Speed Trader", "icon": "", "earned": false },
+    { "title": "Trend Setter", "icon": "", "earned": false }
+  ],
+  "activity": [
+    { "type": "swap", "title": "Swapped Vintage Camera with Sarah M.", "status": "completed", "time": "2 hours ago" },
+    { "type": "donate", "title": "Donated Kids Books Set to Tom H.", "status": "completed", "time": "1 day ago" },
+    { "type": "list", "title": "Listed Yoga Mat", "status": "active", "time": "2 days ago" }
+  ]
+}
+

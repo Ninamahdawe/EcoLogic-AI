@@ -4,6 +4,12 @@ import { MessageCircle, Send, X, Search } from 'lucide-react';
 export function Messaging({ conversations, setConversations }) {
   const [activeChat, setActiveChat] = useState(null);
   const [messageInput, setMessageInput] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredConversations = conversations.filter(conv => 
+    conv.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    conv.lastMessage.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleSendMessage = () => {
     if (messageInput.trim() && activeChat) {
@@ -44,12 +50,23 @@ export function Messaging({ conversations, setConversations }) {
           </h2>
           <div className="relative">
             <Search className="absolute left-3 top-3 w-4 h-4 text-emerald-600" />
-            <input type="text" placeholder="Search conversations..." className="w-full pl-10 pr-4 py-2 bg-white/50 border border-white/30 rounded-xl focus:outline-none text-sm" />
+            <input 
+              type="text" 
+              placeholder="Search conversations..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-white/50 border border-white/30 rounded-xl focus:outline-none text-sm" 
+            />
           </div>
         </div>
 
         <div className="overflow-y-auto flex-1">
-          {conversations.map(conv => (
+          {filteredConversations.length === 0 ? (
+            <div className="p-4 text-center text-gray-500">
+              <p>No conversations found</p>
+            </div>
+          ) : (
+            filteredConversations.map(conv => (
             <div key={conv.id} onClick={() => setActiveChat(conv)} className={`p-4 border-b border-white/10 cursor-pointer transition-all duration-300 hover:bg-white/30 group ${activeChat?.id === conv.id ? 'bg-emerald-50/50 border-l-4 border-l-emerald-600' : ''}`}>
               <div className="flex items-start gap-3">
                 <div className="relative">
@@ -67,7 +84,8 @@ export function Messaging({ conversations, setConversations }) {
                 )}
               </div>
             </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
 
