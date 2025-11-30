@@ -25,8 +25,12 @@ export function AIChatbot() {
 
     try {
       // Using Groq API (free tier available at https://console.groq.com)
-      // Replace 'YOUR_GROQ_API_KEY' with your actual API key from https://console.groq.com
-      const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY || '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'
+      // Get your API key from https://console.groq.com and add it to .env file
+      const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY
+      
+      if (!GROQ_API_KEY || GROQ_API_KEY === 'YOUR_GROQ_API_KEY_HERE') {
+        throw new Error('Groq API key not found. Please add VITE_GROQ_API_KEY to your .env file')
+      }
       
       const response = await fetch(
         'https://api.groq.com/openai/v1/chat/completions',
