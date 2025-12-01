@@ -83,7 +83,7 @@ export function HomePage({ items: initialItems }) {
                 aria-label="Search swaps, collections, and curators"
                 className="w-full pl-20 pr-6 py-6 rounded-xl border border-white/60 bg-white text-lg text-canopy placeholder:text-canopy/40 focus:outline-none focus:ring-4 focus:ring-fern/30 shadow-branch"
               />
-              <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs uppercase tracking-[0.4em] text-canopy/30 hidden sm:block">EcoLogic</div>
+              <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs uppercase tracking-[0.4em] text-canopy/30 hidden sm:block">SwapQuest</div>
             </div>
 
             <div className="flex flex-wrap gap-2 mt-4">
@@ -247,26 +247,6 @@ export function HomePage({ items: initialItems }) {
               Start challenge
             </button>
           </div>
-        </div>
-      </section>
-
-      <section className="eco-shell p-8 space-y-6">
-        <div className="flex items-center gap-3">
-          <Leaf className="w-6 h-6 text-fern" />
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-canopy/50">Flow</p>
-            <h3 className="text-2xl font-semibold text-canopy">Tree-form path</h3>
-          </div>
-        </div>
-        <div className="tree-spine">
-          {canopyNodes.map((node, idx) => (
-            <div key={idx} className="tree-node">
-              <p className="text-sm uppercase tracking-[0.4em] text-canopy/40 mb-2">Branch {idx + 1}</p>
-              <h4 className="text-lg font-semibold text-canopy">{node.title}</h4>
-              <p className="text-sm text-canopy/70 mt-1">{node.detail}</p>
-              <p className="text-xs text-fern font-semibold mt-3">{node.metric}</p>
-            </div>
-          ))}
         </div>
       </section>
 

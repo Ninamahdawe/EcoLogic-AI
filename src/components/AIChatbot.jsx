@@ -133,7 +133,7 @@ export function AIChatbot() {
         <div className="flex items-center gap-3">
           <Sparkles className="w-5 h-5" />
           <div>
-            <p className="font-semibold">EcoLogic AI</p>
+            <p className="font-semibold">SwapQuest AI</p>
             <p className="text-xs text-white/70">Powered by Groq</p>
           </div>
         </div>

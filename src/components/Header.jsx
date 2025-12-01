@@ -26,7 +26,7 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
             <Leaf className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.45em] text-canopy/50">EcoLogic</p>
+            <p className="text-xs uppercase tracking-[0.45em] text-canopy/50">SwapQuest</p>
             <h1 className="text-2xl font-semibold text-canopy">SwapQuest</h1>
             <p className="text-xs text-canopy/60">Nothing to waste. Everything to share.</p>
           </div>
