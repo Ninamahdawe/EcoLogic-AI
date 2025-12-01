@@ -120,40 +120,38 @@ export function AIChatbot() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center justify-center z-40 animate-pulse"
+        className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-white/80 border border-white/60 shadow-branch backdrop-blur-xl text-canopy hover:-translate-y-1 transition z-40"
       >
-        <MessageCircle className="w-8 h-8" />
+        <MessageCircle className="w-7 h-7 mx-auto" />
       </button>
     )
   }
 
   return (
-    <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-cyan-500/30 flex flex-col z-50 overflow-hidden">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-4 flex items-center justify-between">
+    <div className="fixed bottom-6 right-6 w-96 h-[600px] eco-shell flex flex-col z-50">
+      <div className="bg-gradient-to-r from-canopy via-cedar to-fern text-white px-5 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Sparkles className="w-6 h-6 animate-spin" />
+          <Sparkles className="w-5 h-5" />
           <div>
-            <p className="font-black text-lg">SwapQuest AI</p>
-            <p className="text-xs text-cyan-100">Powered by Groq AI</p>
+            <p className="font-semibold">EcoLogic AI</p>
+            <p className="text-xs text-white/70">Powered by Groq</p>
           </div>
         </div>
-        <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/20 rounded-lg transition">
+        <button onClick={() => setIsOpen(false)} className="p-2 rounded-full hover:bg-white/20 transition">
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-800/50 to-slate-900/50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white/40">
         {messages.map((msg) => (
           <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-xs px-4 py-3 rounded-2xl text-sm ${
               msg.sender === 'user' 
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-none' 
-                : 'bg-slate-700/50 text-slate-100 rounded-bl-none border border-cyan-500/30'
+                ? 'bg-canopy text-white rounded-br-md' 
+                : 'bg-white/80 border border-white/40 text-canopy rounded-bl-md'
             }`}>
               <p className="leading-relaxed whitespace-pre-wrap">{msg.text}</p>
-              <p className={`text-xs mt-2 ${msg.sender === 'user' ? 'text-cyan-100' : 'text-slate-400'}`}>
+              <p className={`text-xs mt-2 ${msg.sender === 'user' ? 'text-white/60' : 'text-canopy/50'}`}>
                 {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </p>
             </div>
@@ -161,11 +159,11 @@ export function AIChatbot() {
         ))}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-slate-700/50 text-slate-100 px-4 py-3 rounded-2xl rounded-bl-none border border-cyan-500/30">
+            <div className="bg-white/80 border border-white/40 text-canopy px-4 py-3 rounded-2xl rounded-bl-md">
               <div className="flex gap-2">
-                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-2 h-2 bg-fern rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-fern rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2 h-2 bg-fern rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
               </div>
             </div>
           </div>
@@ -173,26 +171,25 @@ export function AIChatbot() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <div className="border-t border-cyan-500/30 p-4 bg-slate-900/50">
+      <div className="border-t border-white/30 p-4 bg-white/60">
         <div className="flex gap-2 mb-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask me anything..."
-            className="flex-1 bg-slate-800 border border-cyan-500/30 text-white rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400 placeholder-slate-400 text-sm"
+            className="flex-1 bg-white/90 border border-white/50 text-canopy rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-fern/30 text-sm"
           />
           <button
             onClick={handleSend}
             disabled={isLoading}
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-2 rounded-lg hover:shadow-lg transition hover:scale-110 disabled:opacity-50"
+            className="eco-button px-4 py-3 disabled:opacity-50"
           >
             <Send className="w-5 h-5" />
           </button>
         </div>
-        <p className="text-xs text-slate-400">Powered by Groq AI • Try: "How does swapping work?"</p>
+        <p className="text-xs text-canopy/50">Powered by Groq AI • Try: "How does swapping work?"</p>
       </div>
     </div>
   )

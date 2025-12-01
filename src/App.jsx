@@ -73,15 +73,93 @@ export default function SwapQuest() {
 
   const unreadCount = conversations.reduce((acc, conv) => acc + conv.unread, 0);
 
+  const renderPage = () => {
+    if (currentPage === 'home') {
+      return <HomePage items={items} />;
+    }
+    if (currentPage === 'dashboard') {
+      return (
+        <Dashboard
+          selectedChallenge={selectedChallenge}
+          setSelectedChallenge={setSelectedChallenge}
+          challenges={challenges}
+        />
+      );
+    }
+    if (currentPage === 'messages') {
+      return <Messaging conversations={conversations} setConversations={setConversations} />;
+    }
+    return <ProfilePage />;
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+    <div className="relative min-h-screen">
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-32 right-0 w-[520px] h-[520px] bg-fern/20 blur-3xl rounded-full"></div>
+        <div className="absolute top-1/3 -left-40 w-[480px] h-[480px] bg-canopy/10 blur-3xl rounded-full"></div>
+      </div>
+
       <Header currentPage={currentPage} setCurrentPage={setCurrentPage} unreadCount={unreadCount} />
 
-      <main className="max-w-full mx-auto px-8 py-12">
-        {currentPage === 'home' && <div className="max-w-7xl mx-auto"><HomePage items={items} /></div>}
-        {currentPage === 'dashboard' && <div className="max-w-7xl mx-auto"><Dashboard selectedChallenge={selectedChallenge} setSelectedChallenge={setSelectedChallenge} challenges={challenges} /></div>}
-        {currentPage === 'messages' && <Messaging conversations={conversations} setConversations={setConversations} />}
-        {currentPage === 'profile' && <div className="max-w-7xl mx-auto"><ProfilePage /></div>}
+      <main id="main" className="max-w-[1400px] mx-auto px-6 sm:px-10 py-12" role="main" aria-label="SwapQuest content">
+        <div className="relative">
+          <div className="hidden xl:block absolute left-6 top-0 bottom-0 w-16">
+            <div className="h-full w-px bg-gradient-to-b from-canopy/30 via-fern/40 to-transparent mx-auto"></div>
+            <div className="absolute left-1/2 -translate-x-1/2 top-8 w-10 h-10 rounded-full bg-white/70 border border-white/60 backdrop-blur-xl shadow-branch flex items-center justify-center text-canopy font-semibold">
+              🌱
+            </div>
+          </div>
+          <div className="space-y-16 xl:pl-24">
+            <section className="eco-shell p-8 shadow-branch relative overflow-hidden">
+              <div className="absolute inset-y-0 right-0 w-1/2 opacity-40 pointer-events-none">
+                <div className="w-full h-full bg-gradient-to-l from-fern/30 to-transparent mix-blend-multiply"></div>
+              </div>
+              <div className="relative">
+                <p className="uppercase tracking-[0.35em] text-xs text-canopy/60 mb-4">Eco System</p>
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                  <div>
+                    <h2 className="text-3xl sm:text-4xl font-semibold text-canopy">Designing exchanges that feel as calm as a forest walk.</h2>
+                    <p className="mt-4 text-canopy/70 max-w-2xl">
+                      EcoLogic surfaces the most meaningful swaps across your community, balances
+                      giving and receiving, and keeps your sustainability momentum visible at every step.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-3 min-w-[220px]">
+                    <button
+                      className="eco-button"
+                      onClick={() => setCurrentPage('home')}
+                    >
+                      Continue Exploring
+                    </button>
+                    <button
+                      className="eco-subtle-button justify-center"
+                      onClick={() => setCurrentPage('dashboard')}
+                    >
+                      View Impact Dashboard
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-canopy/70">
+                  {[
+                    { label: 'Community Swaps', value: '5,482' },
+                    { label: 'Items Rescued', value: '18,210' },
+                    { label: 'Avg. Response', value: '12 min' },
+                    { label: 'Carbon Offset', value: '38.4 tons' },
+                  ].map((stat) => (
+                    <div key={stat.label} className="bg-white/60 border border-white/50 rounded-2xl px-4 py-3">
+                      <p className="text-xs uppercase tracking-[0.2em] text-canopy/60">{stat.label}</p>
+                      <p className="text-2xl font-semibold text-canopy mt-1">{stat.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="space-y-10">
+              {renderPage()}
+            </section>
+          </div>
+        </div>
       </main>
 
       <AIChatbot />
