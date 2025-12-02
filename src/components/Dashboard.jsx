@@ -44,7 +44,7 @@ export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChal
         })}
       </div>
 
-      <div className="eco-shell p-8">
+        <div className="eco-shell p-8">
         <h3 className="font-semibold text-xl text-canopy mb-6">Milestones</h3>
         <div className="space-y-4">
           {milestones.map((milestone, i) => (
@@ -83,7 +83,7 @@ export function Dashboard({ selectedChallenge: initialChallenge, setSelectedChal
             <button
               key={i}
               onClick={() => setSelectedChallenge(challenge)}
-              className="relative rounded-2xl border border-white/40 bg-white/80 p-6 text-left shadow-branch transition hover:-translate-y-1"
+              className="relative rounded-2xl border border-white/40 bg-white/80 p-6 text-left transition hover:-translate-y-1"
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">{challenge.icon}</span>

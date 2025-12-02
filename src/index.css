@@ -54,7 +54,7 @@
 
 @layer components {
   .eco-shell {
-    @apply bg-white/85 backdrop-blur-xl border border-[#dbe7dd] rounded-xl shadow-md;
+    @apply bg-white/85 backdrop-blur-xl border border-[#dbe7dd] rounded-xl;
   }
 
   .eco-chip {
@@ -62,7 +62,7 @@
   }
 
   .eco-button {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-semibold transition-transform duration-200 text-mist shadow-sm;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-semibold transition-transform duration-200 text-mist;
     background: linear-gradient(120deg, #0f3528 0%, #1e4d3a 60%, #1f6c4f 100%);
   }
 

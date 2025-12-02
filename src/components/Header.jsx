@@ -19,10 +19,10 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-3xl bg-white/70 border-b border-white/40 shadow-canopy">
+    <header className="sticky top-0 z-40 backdrop-blur-3xl bg-white/70 border-b border-white/40">
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 py-4 flex items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-canopy to-cedar text-white flex items-center justify-center shadow-branch">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-canopy to-cedar text-white flex items-center justify-center">
             <Leaf className="w-6 h-6" />
           </div>
           <div>
@@ -39,7 +39,7 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
                 <button
                   onClick={() => setCurrentPage(tab.id)}
                   className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                    currentPage === tab.id ? 'bg-canopy text-white shadow-branch/30' : 'text-canopy/70 hover:text-canopy'
+                    currentPage === tab.id ? 'bg-canopy text-white' : 'text-canopy/70 hover:text-canopy'
                   }`}
                 >
                   <span className="flex items-center gap-1">
@@ -74,7 +74,7 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
             </button>
 
             {showNotifications && (
-              <div className="absolute right-0 mt-4 w-80 eco-shell overflow-hidden shadow-canopy">
+              <div className="absolute right-0 mt-4 w-80 eco-shell overflow-hidden">
                 <div className="bg-gradient-to-r from-canopy via-cedar to-fern text-white px-6 py-4 flex items-center justify-between">
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-white/70">Today</p>
@@ -126,7 +126,7 @@ export function Header({ currentPage, setCurrentPage, unreadCount }) {
               <Settings className="w-5 h-5" />
             </button>
             {showSettings && (
-              <div className="absolute right-0 mt-4 w-64 eco-shell overflow-hidden shadow-canopy">
+              <div className="absolute right-0 mt-4 w-64 eco-shell overflow-hidden">
                 <div className="px-6 py-4 border-b border-white/30">
                   <p className="text-xs uppercase tracking-[0.3em] text-canopy/50">Profile</p>
                   <h3 className="text-lg font-semibold text-canopy">Personal Controls</h3>

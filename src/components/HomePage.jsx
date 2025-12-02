@@ -65,7 +65,7 @@ export function HomePage({ items: initialItems }) {
 
       <section className="space-y-8">
         <div className="space-y-8">
-          <div className="space-y-6 rounded-2xl border border-white/50 bg-white/80 p-8 shadow-canopy relative overflow-hidden">
+          <div className="space-y-6 rounded-2xl border border-white/50 bg-white/80 p-8 relative overflow-hidden">
             <div className="absolute inset-y-0 right-0 w-1/3 pointer-events-none opacity-60 bg-[radial-gradient(circle_at_top,_rgba(123,184,147,0.2),_transparent_55%)]"></div>
             <div className="space-y-2">
               <p className="text-xs uppercase tracking-[0.45em] text-canopy/50">Search & discover</p>
@@ -81,7 +81,7 @@ export function HomePage({ items: initialItems }) {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 aria-label="Search swaps, collections, and curators"
-                className="w-full pl-20 pr-6 py-6 rounded-xl border border-white/60 bg-white text-lg text-canopy placeholder:text-canopy/40 focus:outline-none focus:ring-4 focus:ring-fern/30 shadow-branch"
+                className="w-full pl-20 pr-6 py-6 rounded-xl border border-white/60 bg-white text-lg text-canopy placeholder:text-canopy/40 focus:outline-none focus:ring-4 focus:ring-fern/30"
               />
               <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs uppercase tracking-[0.4em] text-canopy/30 hidden sm:block">SwapQuest</div>
             </div>
@@ -101,7 +101,7 @@ export function HomePage({ items: initialItems }) {
                 aria-pressed={selectedCategory === cat}
                 className={`px-5 py-2.5 rounded-full text-sm font-semibold ${
                   selectedCategory === cat
-                    ? 'bg-canopy text-white shadow-branch'
+                    ? 'bg-canopy text-white'
                     : 'bg-white/70 border border-white/60 text-canopy/70 hover:text-canopy'
                 }`}
                 style={{ transitionDelay: `${i * 30}ms` }}
@@ -123,7 +123,7 @@ export function HomePage({ items: initialItems }) {
               {collections.map((collection, idx) => (
                 <div
                   key={collection.id}
-                  className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-branch p-6 space-y-4 transition hover:-translate-y-1 cursor-pointer"
+                  className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-6 space-y-4 transition hover:-translate-y-1 cursor-pointer"
                   onMouseEnter={() => setHoveredCard(`collection-${idx}`)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
@@ -187,7 +187,7 @@ export function HomePage({ items: initialItems }) {
                 filteredItems.map((item, idx) => (
                   <div
                     key={item.id}
-                    className="group relative rounded-2xl border border-white/50 bg-white/80 shadow-branch overflow-hidden transition hover:-translate-y-1"
+                    className="group relative rounded-2xl border border-white/50 bg-white/80 overflow-hidden transition hover:-translate-y-1"
                     onMouseEnter={() => setHoveredCard(`item-${idx}`)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
@@ -229,7 +229,7 @@ export function HomePage({ items: initialItems }) {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-r from-canopy/90 via-cedar to-fern/80 text-white p-8 shadow-canopy">
+        <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-r from-canopy/90 via-cedar to-fern/80 text-white p-8">
           <div className="absolute inset-y-0 right-0 w-1/2 opacity-40 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.4),_transparent_55%)]"></div>
           <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>

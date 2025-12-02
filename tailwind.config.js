@@ -26,8 +26,8 @@ export default {
         canopy: '0 45px 80px rgba(15,53,40,0.22)',
       },
       boxShadow: {
-        canopy: '0 18px 40px -18px rgba(10, 24, 17, 0.25)',
-        branch: 'inset 0 1px 0 0 rgba(255,255,255,0.35), 0 18px 36px rgba(8,15,11,0.18)',
+        canopy: 'none',
+        branch: 'none',
       },
     },
   },

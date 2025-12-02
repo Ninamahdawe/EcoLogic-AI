@@ -106,14 +106,14 @@ export default function SwapQuest() {
           {currentPage === 'home' && (
             <div className="hidden xl:block absolute left-6 top-0 bottom-0 w-16">
               <div className="h-full w-px bg-gradient-to-b from-canopy/30 via-fern/40 to-transparent mx-auto"></div>
-              <div className="absolute left-1/2 -translate-x-1/2 top-8 w-10 h-10 rounded-full bg-white/70 border border-white/60 backdrop-blur-xl shadow-branch flex items-center justify-center text-canopy font-semibold">
+              <div className="absolute left-1/2 -translate-x-1/2 top-8 w-10 h-10 rounded-full bg-white/70 border border-white/60 backdrop-blur-xl flex items-center justify-center text-canopy font-semibold">
                 🌱
               </div>
             </div>
           )}
           <div className="space-y-16 xl:pl-24">
             {currentPage === 'home' && (
-              <section className="eco-shell p-8 shadow-branch relative overflow-hidden">
+              <section className="eco-shell p-8 relative overflow-hidden">
                 <div className="absolute inset-y-0 right-0 w-1/2 opacity-40 pointer-events-none">
                   <div className="w-full h-full bg-gradient-to-l from-fern/30 to-transparent mix-blend-multiply"></div>
                 </div>
